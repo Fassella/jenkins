@@ -1,12 +1,41 @@
 jenkins:
-  systemMessage: "Bienvenue sur notre serveur Jenkins configuré via JCasC!"
+  systemMessage: "Hello! Welcome to my Jenkins instance :)"
   numExecutors: 2
+  mode: NORMAL
   securityRealm:
     local:
       allowsSignup: false
+      allowsSignup: false
       users:
-       - id: "admin"
-         password: "admin"
-  authorizationStrategy:
-    loggedInUsersCanDoAnything:
-      allowAnonymousRead: false
+        - id: "jigglypuff"
+          password: "password"
+
+
+jobs:
+  - script: >
+      job('Disk Space Check') {
+        description('This is an example job')
+        steps {
+          shell('df')
+        }
+      }
+  - script: >
+      job('Daily Dose of Satisfaction') {
+        description('This is an example job')
+        parameters {
+          stringParam('MY_STRING', '', 'My String Parameter')
+        }
+        steps {
+          shell('echo "Hello, $MY_STRING"')
+          shell('echo "This is build number $BUILD_NUMBER"')
+        }
+      }
+  - script: >
+      job('seed-job') {
+        description('Un seed job pour exécuter job_dsl.groovy')
+        steps {
+          dsl {
+            external('job_dsl.groovy')
+          }
+        }
+      }
