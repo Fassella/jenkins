@@ -1,0 +1,12 @@
+jenkins:
+  systemMessage: "Bienvenue sur notre serveur Jenkins configuré via JCasC!"
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: "admin"
+         password: "admin"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
